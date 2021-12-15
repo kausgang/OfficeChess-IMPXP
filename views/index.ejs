@@ -73,9 +73,10 @@
             action="/loaddata"
             method="post"
             enctype="multipart/form-data"
+            onsubmit="validateFilename()"
           >
             <div class="d-flex">
-              <div class="form-group m-2">
+              <div class="form-group m-2" id="fileUploadForm">
                 <button
                   type="button"
                   class="btn btn-secondary"
@@ -128,9 +129,63 @@
 
   <!-- receive data from import action from loaddata module
    -->
+<script>
+  validateFilename = ()=>{
+    filename = $("#filename").val()
+    if(filename === ''){
+      alert('choose file before importing')
+      location.reload()
+    }
+    
+  }
+</script>
+
   <script>
-    var data = "<%= data %>".replace("&lt;", "<");
-    console.log(data);
+    var labels = "<%= labels %>".split(',')
+    fens="<%= fens %>".split(',')
+    
+    
+    if(fens.length !== 1){
+
+      for(i=0;i<fens.length;i++){
+        let tr =
+          '<tr>\
+                      <th scope="row" data-FEN=' +
+          fens[i] +
+          ">" +
+          '<a href="#">' +
+          labels[i]+
+          "</th>\
+                      <td>" +
+          fens[i] +
+          '</td>\
+                      <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a></td>\
+                  </tr>';
+
+        $("#tablerow").append(tr);
+      }
+      
+    }
+    else{
+      // check if fen is a valid string
+      if(fens[0] !== ""){
+        let tr =
+          '<tr>\
+                      <th scope="row" data-FEN=' +
+          fens[0] +
+          ">" +
+          '<a href="#">' +
+          labels[0]+
+          "</th>\
+                      <td>" +
+          fens[0] +
+          '</td>\
+                      <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"></i></a></td>\
+                  </tr>';
+
+        $("#tablerow").append(tr);
+      }
+    }
   </script>
 
   <script>
