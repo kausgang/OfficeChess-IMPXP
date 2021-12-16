@@ -12,19 +12,11 @@ var router = express.Router();
 const upload = multer({ dest: "public/uploads/" });
 
 router.post("/", upload.single("fenlist"), function (req, res, next) {
-  // console.log(req.file.filename);
-  // if (req.file.filename == "undefined")
-  //   res.send("go back and select file to import");
+  if (req.file === undefined) res.send("<h1>Go Back and select file</h1>");
 
   server_filename = path.join("public", "uploads", req.file.filename);
   data = fs.readFileSync(server_filename, { encoding: "utf8", flag: "r" });
-  // res.send(data);
-
-  // delete server file
-  fs.unlink(server_filename, function (err) {
-    if (err) return console.log(err);
-    console.log("file deleted successfully");
-  });
+  console.log(data);
 
   var rows = data.trim().split(/\r?\n|\r/); // Regex to split/separate the CSV rows
 
@@ -44,7 +36,13 @@ router.post("/", upload.single("fenlist"), function (req, res, next) {
     // res.locals.fens.push(fen);
   });
 
-  // res.redirect("/");
+  // delete server file
+  fs.unlink(server_filename, function (err) {
+    if (err) return console.log(err);
+    console.log("file deleted successfully");
+  });
+
+  console.log(labels, fens);
   res.render("index", { labels: labels, fens: fens });
   // next();
 });
