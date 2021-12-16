@@ -11,6 +11,9 @@ var loadData = require("./routes/loaddata");
 
 var app = express();
 
+app.locals.labels = [];
+app.locals.fens = [];
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
