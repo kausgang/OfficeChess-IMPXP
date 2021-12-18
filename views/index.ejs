@@ -31,6 +31,9 @@
       integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
       crossorigin="anonymous"
     ></script>
+
+    <!-- create unique filename -->
+    <script src="https://unpkg.com/uuid@beta/dist/umd/uuidv4.min.js"></script>
   </head>
 
   <body>
@@ -88,6 +91,7 @@
                   class="form-control"
                   id="filename"
                   name="fenlist"
+                  accept=".kfen"
                 />
                 <!-- <button type="submit" class="btn btn-primary">Import</button> -->
               </div>
@@ -319,7 +323,8 @@ the data in a csv file downloadCSVFile(csv_data);
 
       // Download csv file
       // temp_link.download = "FEN.csv";
-      temp_link.download = "";
+      filename = uuidv4();
+      temp_link.download = filename + ".kfen";
       var url = window.URL.createObjectURL(CSVFile);
       temp_link.href = url;
 
