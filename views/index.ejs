@@ -105,7 +105,7 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name/FEN</th>
+                <th scope="col">FEN</th>
               </tr>
             </thead>
             <tbody id="tablerow"></tbody>
@@ -232,13 +232,14 @@
       let FEN = board.fen();
 
       //check if user wants to give a name to the fen
-      let name = prompt("Want to give a Name: ");
+      // let name = prompt("Want to give a Name: ");
 
       let name_fen = "";
 
       // if name is entered, add name to the FEN string
-      if (name) name_fen = name;
-      else name_fen = FEN;
+      // if (name) name_fen = name;
+      // else name_fen = FEN;
+      name_fen = FEN;
 
       let tr =
         '<tr>\
